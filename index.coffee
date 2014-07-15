@@ -150,7 +150,7 @@ binder = (phantom) ->
 
 
         getIndex: -> 0 # Implement this in child classes!
-            
+
         open: (callback) ->
             index = @getIndex()
             @create index
@@ -171,7 +171,7 @@ binder = (phantom) ->
                 @cursor = 0
             @cursor++
 
-                
+
     class RandomPhantomStrategy extends PooledPhantomStrategy
         getIndex: -> Math.floor Math.random() * @size
 
@@ -189,7 +189,7 @@ binder = (phantom) ->
         FINISH: 'finished'
         CHECKING: 'checking'
         CONSOLE: 'console'
-    
+
     # Default values for the request builder
     builders =
         when:
