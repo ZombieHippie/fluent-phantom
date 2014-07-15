@@ -11,8 +11,7 @@ Duration = require('duration-js')
 
 
 # A helper to provide the current time
-now = ->
-    (new Date).getTime()
+now = Date.now
 
 # The module exports are defined in this function to make it easy to inject a 
 # mock for unit testing.
