@@ -39,6 +39,8 @@
     "coffee-script": "~1.7.1",
     "duration-js": "^3.3.3",
     "when": "~3.4.0",
+    "promise-keeper": "~1.1",
+    "promise.coffee": "~1",
     "phantom": "~0.6.5"
   }
 }
