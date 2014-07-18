@@ -36,19 +36,13 @@ module.exports =
         prevTime = @datatimer[value]
         delete @datatimer[value]
         Date.now() - prevTime
-  # .getTimer() uses the time under originalValue
-  # .getTimer(String label) uses the time under label
-  # Resolves to difference between now and recorded time in milliseconds
-  getTimer: (label) ->
+  # .logTimer() logs the time under originalValue
+  # .logTimer(String label) logs the time under label
+  # Resolves to originalValue
+  logTimer: (label, message) ->
     @datatimer ?= {}
-    if label?
-      if typeof label isnt "string"
-        throw TypeError(".getTimer(String label) requires label to be a String")
-      else
-        return @then =>
-          prevTime = @datatimer[label]
-          Date.now() - prevTime
-    else
-      return @then (value) =>
-        prevTime = @datatimer[value]
-        Date.now() - prevTime
+    @then (value) =>
+      label ?= value
+      message ?= label
+      prevTime = @datatimer[label]
+      console.log message + ": " + (Date.now() - prevTime) + "ms"
