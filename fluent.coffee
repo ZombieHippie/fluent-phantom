@@ -3,13 +3,11 @@
 { PromiseKeeper } = require 'promise-keeper'
 { Deferred } = require 'promise.coffee'
 
-createPage = (options) ->
+create = (options) ->
   (new PromiseKeeper())
-  .useAll require './decorators/debugging'
-  .useAll require './decorators/filesystem'
-  #.useAll require './decorators/time'
-  #.useAll require './decorators/phantom'
-  #.createPhantom(options)
-  #.createPage()
-
-module.exports = createPage
+  .extend require './decorators/debugging'
+  .extend require './decorators/filesystem'
+  .extend require './decorators/timer'
+  .extend require './decorators/phantom'
+  .createPhantom(options)
+module.exports = create

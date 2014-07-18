@@ -1,27 +1,27 @@
 # Debugging decorators
-{ Deferred } = require 'promise.coffee'
 
 module.exports =
   # .log() outputs current value
   # .log(String message) outputs message
+  # .log(Function message) outputs message(value)
   # Resolves to original value
   log: (message) ->
     @then (value) =>
-      def = new Deferred
       if message?
-        console.log message
+        if typeof message is "string"
+          console.log message.replace("%s", String(value))
+        else if typeof message is "function"
+          console.log message(value)
+        else
+          throw TypeError(".log(String message) requires message to be a String or Function")
       else
         console.log value
-      def.resolve value
-      def.promise
-
-  # .observe(Function fn) allows you to manipulate the current value synchronously with a function
+      value
+  # .alter(Function fn) allows you to manipulate the current value synchronously with a function
   # Resolves to return from fn(originalValue)
-  observe: (fn) ->
+  alter: (fn) ->
     if typeof fn isnt "function"
-      throw TypeError(".observe(Function fn) requires a function parameter")
+      throw TypeError(".alter(Function fn) requires a function parameter")
     @then (value) =>
-      def = new Deferred
       # Resolves to return value of fn
-      def.resolve fn value
-      def.promise
+      fn value
